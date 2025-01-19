@@ -14,6 +14,10 @@ module.exports = (_, argv) => ({
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    alias: {
+      'shared-components': path.resolve(__dirname, '../shared-components'),
+      'shared-contexts': path.resolve(__dirname, '../shared-contexts'),
+    },
   },
 
   devServer: {
@@ -56,7 +60,13 @@ module.exports = (_, argv) => ({
         use: {
           loader: "babel-loader",
         },
-      },
+      }
+      ,
+      {
+        test: /\.svg$/,
+        exclude: /blocks/,
+        use: ['@svgr/webpack', 'url-loader'],
+      }
     ],
   },
 
@@ -66,8 +76,7 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {},
       exposes: {
-        './Login': './src/components/Login.js',
-        './Register': './src/components/Register.js',
+        './Auth': './src/components/Auth.js'
       },
       shared: {
         ...deps,
@@ -78,6 +87,16 @@ module.exports = (_, argv) => ({
         "react-dom": {
           singleton: true,
           requiredVersion: deps["react-dom"],
+        },
+        'shared-components': {
+          import: 'shared-components',
+          singleton: true,
+          requiredVersion: require('../shared-components/package.json').version,
+        },
+        'shared-contexts': {
+          import: 'shared-contexts',
+          singleton: true,
+          requiredVersion: require('../shared-contexts/package.json').version,
         },
       },
     }),

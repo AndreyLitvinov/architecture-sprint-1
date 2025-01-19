@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../blocks/login/login.css';
 import '../blocks/auth-form/auth-form.css';
 
 
-function Login ({ onLogin }){
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+function Login({ onLogin }) {
 
-  function handleSubmit(e){
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleSubmit(e) {
+    
     e.preventDefault();
-    const userData = {
+
+    onLogin({
       email,
       password
-    }
-    onLogin(userData);
+    });
+
   }
- 
+
   return (
     <div className="auth-form">
       <form className="auth-form__form" onSubmit={handleSubmit}>
@@ -25,12 +28,12 @@ function Login ({ onLogin }){
           <label className="auth-form__input">
             <input type="text" name="name" id="email"
               className="auth-form__textfield" placeholder="Email"
-              onChange={e => setEmail(e.target.value)} required  />
+              onChange={e => setEmail(e.target.value)} required />
           </label>
           <label className="auth-form__input">
             <input type="password" name="password" id="password"
               className="auth-form__textfield" placeholder="Пароль"
-              onChange={e => setPassword(e.target.value)} required  />
+              onChange={e => setPassword(e.target.value)} required />
           </label>
         </div>
         <button className="auth-form__button" type="submit">Войти</button>

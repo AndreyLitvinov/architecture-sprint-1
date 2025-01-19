@@ -5,10 +5,39 @@
 
 MF - для микрофронтендов
 
+
 - host - хост приложения
 - auth - регистрация/авторизация
-- profile - редактирование профиля
-- mesto - ста
+- profile - блок с информацией о профиле и редактирование профиля
+- places - места, сама стена и все что связанно с лайками загрузкой удалением мест
+- shared-components - общие компоненты, модальные окна, по хорошему можно выделить в отдельный пакет
+- shared-contexts - общие контексты, пока только контекст пользователя, можно заменить на более надежные подходы к хранению состояния.
 
 
-PopupWithForm.js - куда это?
+### Запуск
+
+Скрипты что бы быстро запустить.
+
+#### Windows
+```powershell
+
+cd ./microfrontend
+
+Start-Process powershell -ArgumentList "cd ./host; npm install; npm start"
+Start-Process powershell -ArgumentList "cd ./auth; npm install; npm start"
+Start-Process powershell -ArgumentList "cd ./profile; npm install; npm start"
+Start-Process powershell -ArgumentList "cd ./places; npm install; npm start"
+;
+
+```
+
+#### Linux
+```powershell
+
+cd ./microfrontend
+( cd ./host && npm install && npm start ) &
+( cd ./auth && npm install && npm start ) &
+( cd ./profile && npm install && npm start ) &
+( cd ./places && npm install && npm start ) &
+
+```

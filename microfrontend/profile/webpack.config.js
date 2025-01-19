@@ -14,6 +14,10 @@ module.exports = (_, argv) => ({
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    alias: {
+      'shared-components': path.resolve(__dirname, '../shared-components'),
+      'shared-contexts': path.resolve(__dirname, '../shared-contexts'),
+    },
   },
 
   devServer: {
@@ -65,7 +69,9 @@ module.exports = (_, argv) => ({
       name: "profile",
       filename: "remoteEntry.js",
       remotes: {},
-      exposes: {},
+      exposes: {
+        './Profile': './src/components/Profile.js'
+      },
       shared: {
         ...deps,
         react: {
@@ -75,6 +81,18 @@ module.exports = (_, argv) => ({
         "react-dom": {
           singleton: true,
           requiredVersion: deps["react-dom"],
+        },
+        'shared-components': {
+          import: 'shared-components',
+          singleton: true,
+          // eager: true,
+          requiredVersion: require('../shared-components/package.json').version,
+        },
+        'shared-contexts': {
+          import: 'shared-contexts',
+          singleton: true,
+          // eager: true,
+          requiredVersion: require('../shared-contexts/package.json').version,
         },
       },
     }),

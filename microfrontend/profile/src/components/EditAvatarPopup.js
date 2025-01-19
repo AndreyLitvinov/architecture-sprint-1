@@ -1,8 +1,10 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
+import React, { useRef } from 'react';
+// import PopupWithForm from '../../../shared-components/src/PopupWithForm';
+import { PopupWithForm } from 'shared-components';
 
 function EditAvatarPopup({ isOpen, onUpdateAvatar, onClose }) {
-  const inputRef = React.useRef();
+  
+  const inputRef = useRef();
 
   function handleSubmit(e) {
     e.preventDefault();

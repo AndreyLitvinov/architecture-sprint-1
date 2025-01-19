@@ -8,12 +8,21 @@ const deps = require("./package.json").dependencies;
 const printCompilationMessage = require('./compilation.config.js');
 
 module.exports = (_, argv) => ({
+
+  entry: {
+    app : './src/index.js'
+},
+
+
   output: {
     publicPath: "http://localhost:8080/",
   },
 
   resolve: {
     extensions: [".tsx", ".ts", ".jsx", ".js", ".json"],
+    alias: {
+      'shared-contexts': path.resolve(__dirname, '../shared-contexts'),
+    },
   },
 
   devServer: {
@@ -57,6 +66,10 @@ module.exports = (_, argv) => ({
           loader: "babel-loader",
         },
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack', 'url-loader'],
+      }
     ],
   },
 
@@ -66,7 +79,9 @@ module.exports = (_, argv) => ({
       filename: "remoteEntry.js",
       remotes: {
         'auth': 'auth@http://localhost:8081/remoteEntry.js',
-      }, 
+        'profile': 'profile@http://localhost:8082/remoteEntry.js',
+        'places': 'places@http://localhost:8083/remoteEntry.js',
+      },
       exposes: {},
       shared: {
         ...deps,
@@ -78,10 +93,15 @@ module.exports = (_, argv) => ({
           singleton: true,
           requiredVersion: deps["react-dom"],
         },
+        'shared-contexts': {
+            import: 'shared-contexts',
+            singleton: true,
+            requiredVersion: require('../shared-contexts/package.json').version,
+          },
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: "./public/index.html",
     }),
     new Dotenv()
   ],

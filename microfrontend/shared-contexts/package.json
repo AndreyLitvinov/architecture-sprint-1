@@ -1,21 +1,11 @@
 {
-  "name": "host",
+  "name": "shared-context",
   "version": "1.0.0",
-  "scripts": {
-    "build": "webpack --mode production",
-    "build:dev": "webpack --mode development",
-    "build:start": "cd dist && PORT=8080 npx serve",
-    "start": "webpack serve --mode development",
-    "start:live": "webpack serve --mode development --live-reload --hot"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Jack Herrington",
-    "email": "jherr@pobox.com"
-  },
+  "main": "index.js",
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/plugin-transform-react-jsx": "^7.25.9",
     "@babel/preset-env": "^7.15.8",
     "@babel/preset-react": "^7.14.5",
     "@svgr/webpack": "^8.1.0",
@@ -32,10 +22,17 @@
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.3.1"
   },
-    "dependencies": {
-      "@babel/runtime": "^7.13.10",
-      "react": "^18.2.0",
-      "react-dom": "^18.2.0",
-      "react-router-dom": "^5.2.0"
-    }
+  "babel": {
+    "presets": [
+      "@babel/preset-react",
+      "@babel/preset-env"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-react-jsx"
+    ]
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.13.10",
+    "react": "^18.2.0"
+  }
 }

@@ -1,9 +1,11 @@
-import React from 'react';
-import PopupWithForm from './PopupWithForm';
+import React, { useState } from 'react';
+import { PopupWithForm } from 'shared-components';
 
 function AddPlacePopup({ isOpen, onAddPlace, onClose }) {
-  const [name, setName] = React.useState('');
-  const [link, setLink] = React.useState('');
+  const [name, setName] = useState('');
+  const [link, setLink] = useState('');
+
+  // const isOpen = true;
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -12,6 +14,7 @@ function AddPlacePopup({ isOpen, onAddPlace, onClose }) {
   function handleLinkChange(e) {
     setLink(e.target.value);
   }
+
 
   function handleSubmit(e) {
     e.preventDefault();

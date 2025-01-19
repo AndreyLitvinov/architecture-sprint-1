@@ -1,26 +1,25 @@
-import React, { lazy } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
+import Root from "./components/Root.jsx";
+import { BrowserRouter } from "react-router-dom";
+import { CurrentUserProvider } from "shared-contexts";
 
 import "./index.css";
 
-const Login = lazy(() => import('auth/Login').catch(() => {
-  return { default: () => <div className='error'>Component is not available!</div> };
-})
-);
+const Entry = () => (<div className="page__content">
+  <React.StrictMode>
+    <BrowserRouter>
+      <CurrentUserProvider>
+        <Root />
+      </CurrentUserProvider>
+    </BrowserRouter>
+  </React.StrictMode>
+</div>);
 
-const App = () => (
-  
-  <div className="container">
-    <Login />
-    <div>Name: host</div>
-    <div>Framework: react</div>
-    <div>Language: JavaScript</div>
-    <div>CSS: Empty CSS</div>
-  </div>
-);
-const rootElement = document.getElementById("app")
+
+const rootElement = document.getElementById("root")
 if (!rootElement) throw new Error("Failed to find the root element")
 
-const root = ReactDOM.createRoot(rootElement)
+const rootReactElement = ReactDOM.createRoot(rootElement)
 
-root.render(<App />)
+rootReactElement.render(<Entry />)
