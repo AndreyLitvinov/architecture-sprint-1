@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SuccessIcon from '../images/components/success-icon.svg';
-import ErrorIcon from '../images/components/error-icon.svg';
+import SuccessIcon from '../images/success-icon.svg';
+import ErrorIcon from '../images/error-icon.svg';
 
 import { InfoTooltip } from 'shared-components';
 
